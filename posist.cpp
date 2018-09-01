@@ -1,9 +1,26 @@
 #include <bits/stdc++.h>
 #include<string>
 using namespace std;
+//code for generating local time in human readable format
+class Date
+{
+	// Declaring argument for time()
+    time_t tt;
+ 
+    // Declaring variable to store return value of
+    // localtime()
+    struct tm * ti;
+    string time;
+ 	Date()
+ 	{
+    	// Applying time()
+    	time (&tt);
+    	// Using localtime()
+    	ti = localtime(&tt);
+    	time=asctime(ti);
+    }
+}
 
-
-//Defining the schema for a basic Node.
 
 struct Data {
     int ownerId;
@@ -11,16 +28,15 @@ struct Data {
     char owner_name[50];
 
 };
-
+//Defining the schema for a basic Node.
 struct node {
-    time_t time_now ;
-    string time_in_date ;   // to convert timestamp to user readable date using strftime()
+    Date timestamp = new Date();
     Data *data ;
     string nodeId ;
     int nodeNumber ;
     node *referenceNodeid ;
 
-    std::vector<node *> childReferenceNodeid;                 // Array of addresses.
+    std::vector<node *> childReferenceNodeid;                 // Array of addresses of child nodes.
 
     node *genesisReferenceNodeid;
     set<int> HashValue;         // Hash of value of the set.
@@ -31,12 +47,11 @@ struct node {
 
 };
 
-// TASK 1
-//Creating the first Node i.e. genesis node.
+//Creating the genesis node.
 node createGenesisNode(int node_number){
 
    node *n = new node ;
-   n->time_now = time(0);    // Get current timestamp
+   n->timestamp;    // Get current timestamp
 
    n->nodeNumber = node_number;
    stringstream ss;
@@ -65,7 +80,9 @@ void addChildNode(int node_number,node *genesis,int current_node_number){
        node *p = new node;
 
          p->nodeNumber = current_node_number;
-         p->nodeId = to_string(nodeNumber);
+         stringstream ss;
+    ss << current_node_number;
+   p->nodeId = ss.str();
             cout<<"Enter DATA";
         cin>>p->data->ownerId;
         cin>>p->data->value;
