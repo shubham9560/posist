@@ -154,7 +154,7 @@ void merge_node(node *node1, node* node2){
 int main(){
  static int no;
  no++;                               //Would keep a static variable to keep current count of nodes between function calls,
-                                     //as no database is there.
+      //neat and clean code                               //as no database is there.
  node *gen = createGenesisNode(no);
  n++;
  addChildNode(1,gen,n);
